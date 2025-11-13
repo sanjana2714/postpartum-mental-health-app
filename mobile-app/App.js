@@ -8,6 +8,10 @@ import RegistrationScreen from './src/screens/RegistrationScreen';
 import LoginScreen from './src/screens/LoginScreen';
 import ProfileSetupScreen from './src/screens/ProfileSetupScreen';
 import DashboardScreen from './src/screens/DashboardScreen';
+import MoodCheckInScreen from './src/screens/MoodCheckInScreen';
+import QuestionnaireSelectionScreen from './src/screens/QuestionnaireSelectionScreen';
+import EPDSQuestionnaireScreen from './src/screens/EPDSQuestionnaireScreen';
+import QuestionnaireResultsScreen from './src/screens/QuestionnaireResultsScreen';
 
 const Stack = createStackNavigator();
 
@@ -22,6 +26,10 @@ export default function App() {
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="ProfileSetup" component={ProfileSetupScreen} />
         <Stack.Screen name="Dashboard" component={DashboardScreen} />
+        <Stack.Screen name="MoodCheckIn" component={MoodCheckInScreen} />
+        <Stack.Screen name="QuestionnaireSelection" component={QuestionnaireSelectionScreen} />
+        <Stack.Screen name="EPDSQuestionnaire" component={EPDSQuestionnaireScreen} />
+        <Stack.Screen name="QuestionnaireResults" component={QuestionnaireResultsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -73,8 +73,7 @@ export default function HomeTab() {
               style={[styles.actionCard, { backgroundColor: action.color + '20' }]}
               onPress={() => {
                 if (action.screen) {
-                  // TODO: Navigate to specific screen when implemented
-                  console.log('Navigate to:', action.screen);
+                  navigation.navigate(action.screen);
                 }
               }}
             >
