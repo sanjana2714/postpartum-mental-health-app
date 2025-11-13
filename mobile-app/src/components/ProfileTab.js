@@ -1,11 +1,18 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 export default function ProfileTab() {
+  const navigation = useNavigation();
+
+  React.useEffect(() => {
+    navigation.navigate('Settings');
+  }, []);
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Profile & Settings</Text>
-      <Text style={styles.subtitle}>Coming soon...</Text>
+      <Text style={styles.subtitle}>Redirecting...</Text>
     </View>
   );
 }

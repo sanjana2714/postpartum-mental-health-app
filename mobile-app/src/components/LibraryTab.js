@@ -1,11 +1,18 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 export default function LibraryTab() {
+  const navigation = useNavigation();
+
+  React.useEffect(() => {
+    navigation.navigate('Library');
+  }, []);
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Education Library</Text>
-      <Text style={styles.subtitle}>Coming soon...</Text>
+      <Text style={styles.subtitle}>Redirecting...</Text>
     </View>
   );
 }

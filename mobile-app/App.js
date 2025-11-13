@@ -16,6 +16,17 @@ import GAD7QuestionnaireScreen from './src/screens/GAD7QuestionnaireScreen';
 import PSSQuestionnaireScreen from './src/screens/PSSQuestionnaireScreen';
 import AIChatbotScreen from './src/screens/AIChatbotScreen';
 import ProgressScreen from './src/screens/ProgressScreen';
+import EmergencyAlertScreen from './src/screens/EmergencyAlertScreen';
+import EducationLibraryScreen from './src/screens/EducationLibraryScreen';
+import ContentDetailScreen from './src/screens/ContentDetailScreen';
+import YogaBreathingScreen from './src/screens/YogaBreathingScreen';
+import CommunityForumScreen from './src/screens/CommunityForumScreen';
+import PartnerSupportScreen from './src/screens/PartnerSupportScreen';
+import ProfileSettingsScreen from './src/screens/ProfileSettingsScreen';
+import RemindersNotificationsScreen from './src/screens/RemindersNotificationsScreen';
+import ProviderLoginScreen from './src/screens/ProviderLoginScreen';
+import ProviderDashboardScreen from './src/screens/ProviderDashboardScreen';
+import BadgesGamificationScreen from './src/screens/BadgesGamificationScreen';
 
 const Stack = createStackNavigator();
 
@@ -38,6 +49,17 @@ export default function App() {
         <Stack.Screen name="QuestionnaireResults" component={QuestionnaireResultsScreen} />
         <Stack.Screen name="AIChat" component={AIChatbotScreen} />
         <Stack.Screen name="Progress" component={ProgressScreen} />
+        <Stack.Screen name="EmergencyAlert" component={EmergencyAlertScreen} />
+        <Stack.Screen name="Library" component={EducationLibraryScreen} />
+        <Stack.Screen name="ContentDetail" component={ContentDetailScreen} />
+        <Stack.Screen name="YogaBreathing" component={YogaBreathingScreen} />
+        <Stack.Screen name="Community" component={CommunityForumScreen} />
+        <Stack.Screen name="PartnerSupport" component={PartnerSupportScreen} />
+        <Stack.Screen name="Settings" component={ProfileSettingsScreen} />
+        <Stack.Screen name="Reminders" component={RemindersNotificationsScreen} />
+        <Stack.Screen name="ProviderLogin" component={ProviderLoginScreen} />
+        <Stack.Screen name="ProviderDashboard" component={ProviderDashboardScreen} />
+        <Stack.Screen name="Badges" component={BadgesGamificationScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
