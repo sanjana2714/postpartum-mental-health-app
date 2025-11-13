@@ -43,8 +43,7 @@ const QUESTIONNAIRES = [
 
 export default function QuestionnaireSelectionScreen({ navigation }) {
   const handleStartQuestionnaire = (questionnaire) => {
-    // TODO: Navigate to specific questionnaire screen when implemented
-    console.log('Start questionnaire:', questionnaire.id);
+    navigation.navigate(questionnaire.screen);
   };
 
   const getDaysSinceCompleted = (dateString) => {

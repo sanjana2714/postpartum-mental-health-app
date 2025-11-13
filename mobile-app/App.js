@@ -12,6 +12,8 @@ import MoodCheckInScreen from './src/screens/MoodCheckInScreen';
 import QuestionnaireSelectionScreen from './src/screens/QuestionnaireSelectionScreen';
 import EPDSQuestionnaireScreen from './src/screens/EPDSQuestionnaireScreen';
 import QuestionnaireResultsScreen from './src/screens/QuestionnaireResultsScreen';
+import GAD7QuestionnaireScreen from './src/screens/GAD7QuestionnaireScreen';
+import PSSQuestionnaireScreen from './src/screens/PSSQuestionnaireScreen';
 
 const Stack = createStackNavigator();
 
@@ -29,6 +31,8 @@ export default function App() {
         <Stack.Screen name="MoodCheckIn" component={MoodCheckInScreen} />
         <Stack.Screen name="QuestionnaireSelection" component={QuestionnaireSelectionScreen} />
         <Stack.Screen name="EPDSQuestionnaire" component={EPDSQuestionnaireScreen} />
+        <Stack.Screen name="GAD7Questionnaire" component={GAD7QuestionnaireScreen} />
+        <Stack.Screen name="PSSQuestionnaire" component={PSSQuestionnaireScreen} />
         <Stack.Screen name="QuestionnaireResults" component={QuestionnaireResultsScreen} />
       </Stack.Navigator>
     </NavigationContainer>

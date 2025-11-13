@@ -1,4 +1,12 @@
 // This is your Prisma schema file
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
 
 // Enums
 enum Role {
@@ -9,9 +17,8 @@ enum Role {
 
 enum Language {
   ENGLISH
-  SPANISH
-  FRENCH
-  OTHER
+  HINDI
+  TELUGU
 }
 
 enum Gender {
@@ -21,20 +28,22 @@ enum Gender {
 }
 
 enum Stage {
-  NORMAL
-  AT_RISK
-  DEPRESSED
+  PREGNANT
+  POSTPARTUM
 }
 
 enum MoodLevel {
+  VERY_HAPPY
   HAPPY
-  SAD
   NEUTRAL
+  SAD
+  VERY_SAD
 }
 
 enum QuestionnaireType {
-  INITIAL
-  FOLLOW_UP
+  EPDS
+  GAD7
+  PSS
 }
 
 enum RiskLevel {
@@ -61,43 +70,65 @@ enum PartnerStatus {
 
 // Models
 model User {
-  id                Int              @id @default(autoincrement())
-  email             String           @unique
-  password          String
-  role              Role
-  userProfile       UserProfile?
-  moodCheckins      MoodCheckin[]
-  alerts            Alert[]
-  bookmarks         Bookmark[]
-  chatMessages      ChatMessage[]
-  userBadges        UserBadge[]
-  providerLinks     PatientProviderLink[]
+  id                    Int                      @id @default(autoincrement())
+  email                 String                   @unique
+  phone                 String?
+  password              String
+  role                  Role                     @default(USER)
+  createdAt             DateTime                 @default(now())
+  updatedAt             DateTime                 @updatedAt
+  userProfile           UserProfile?
+  moodCheckins          MoodCheckin[]
+  questionnaireResponses QuestionnaireResponse[]
+  alerts                Alert[]
+  bookmarks             Bookmark[]
+  chatMessages          ChatMessage[]
+  userBadges            UserBadge[]
+  providerLinks         PatientProviderLink[]
+  medications           Medication[]
+  partners              Partner[]
+  notificationSettings  NotificationSetting[]
+  communityPosts        CommunityPost[]
 }
 
 model UserProfile {
-  id        Int     @id @default(autoincrement())
-  userId    Int     @unique
-  name      String
-  gender    Gender
-  language  Language
-  stage     Stage
-  user      User    @relation(fields: [userId], references: [id])
+  id              Int       @id @default(autoincrement())
+  userId          Int       @unique
+  name            String
+  age             Int?
+  gender          Gender
+  language        Language  @default(ENGLISH)
+  stage           Stage
+  deliveryDate    DateTime?
+  weeksPostpartum String?
+  profilePhoto    String?
+  partnerContact  String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model MoodCheckin {
-  id           Int      @id @default(autoincrement())
+  id           Int       @id @default(autoincrement())
   userId       Int
   moodLevel    MoodLevel
-  checkinDate  DateTime @default(now())
-  user         User     @relation(fields: [userId], references: [id])
+  notes        String?
+  checkinDate  DateTime  @default(now())
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, checkinDate])
 }
 
 model QuestionnaireResponse {
-  id          Int      @id @default(autoincrement())
+  id          Int                @id @default(autoincrement())
   userId      Int
-  response    String
-  createdAt   DateTime @default(now())
-  user        User     @relation(fields: [userId], references: [id])
+  type        QuestionnaireType
+  score       Int
+  responses   Json
+  createdAt   DateTime           @default(now())
+  user        User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, type, createdAt])
 }
 
 model ChatMessage {
