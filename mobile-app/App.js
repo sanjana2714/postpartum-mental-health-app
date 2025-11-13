@@ -14,6 +14,8 @@ import EPDSQuestionnaireScreen from './src/screens/EPDSQuestionnaireScreen';
 import QuestionnaireResultsScreen from './src/screens/QuestionnaireResultsScreen';
 import GAD7QuestionnaireScreen from './src/screens/GAD7QuestionnaireScreen';
 import PSSQuestionnaireScreen from './src/screens/PSSQuestionnaireScreen';
+import AIChatbotScreen from './src/screens/AIChatbotScreen';
+import ProgressScreen from './src/screens/ProgressScreen';
 
 const Stack = createStackNavigator();
 
@@ -34,6 +36,8 @@ export default function App() {
         <Stack.Screen name="GAD7Questionnaire" component={GAD7QuestionnaireScreen} />
         <Stack.Screen name="PSSQuestionnaire" component={PSSQuestionnaireScreen} />
         <Stack.Screen name="QuestionnaireResults" component={QuestionnaireResultsScreen} />
+        <Stack.Screen name="AIChat" component={AIChatbotScreen} />
+        <Stack.Screen name="Progress" component={ProgressScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
