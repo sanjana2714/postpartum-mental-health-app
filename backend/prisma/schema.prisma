@@ -1,0 +1,203 @@
+// This is your Prisma schema file
+
+// Enums
+enum Role {
+  USER
+  ADMIN
+  PROVIDER
+}
+
+enum Language {
+  ENGLISH
+  SPANISH
+  FRENCH
+  OTHER
+}
+
+enum Gender {
+  MALE
+  FEMALE
+  OTHER
+}
+
+enum Stage {
+  NORMAL
+  AT_RISK
+  DEPRESSED
+}
+
+enum MoodLevel {
+  HAPPY
+  SAD
+  NEUTRAL
+}
+
+enum QuestionnaireType {
+  INITIAL
+  FOLLOW_UP
+}
+
+enum RiskLevel {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum ContentCategory {
+  ARTICLE
+  VIDEO
+  PODCAST
+}
+
+enum ContentType {
+  INFORMATION
+  ENTERTAINMENT
+}
+
+enum PartnerStatus {
+  ACTIVE
+  INACTIVE
+}
+
+// Models
+model User {
+  id                Int              @id @default(autoincrement())
+  email             String           @unique
+  password          String
+  role              Role
+  userProfile       UserProfile?
+  moodCheckins      MoodCheckin[]
+  alerts            Alert[]
+  bookmarks         Bookmark[]
+  chatMessages      ChatMessage[]
+  userBadges        UserBadge[]
+  providerLinks     PatientProviderLink[]
+}
+
+model UserProfile {
+  id        Int     @id @default(autoincrement())
+  userId    Int     @unique
+  name      String
+  gender    Gender
+  language  Language
+  stage     Stage
+  user      User    @relation(fields: [userId], references: [id])
+}
+
+model MoodCheckin {
+  id           Int      @id @default(autoincrement())
+  userId       Int
+  moodLevel    MoodLevel
+  checkinDate  DateTime @default(now())
+  user         User     @relation(fields: [userId], references: [id])
+}
+
+model QuestionnaireResponse {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  response    String
+  createdAt   DateTime @default(now())
+  user        User     @relation(fields: [userId], references: [id])
+}
+
+model ChatMessage {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  content   String
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+model Alert {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  message   String
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+model Content {
+  id              Int              @id @default(autoincrement())
+  title           String
+  category        ContentCategory
+  type            ContentType
+  createdAt       DateTime         @default(now())
+}
+
+model Bookmark {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  contentId Int
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+model CommunityTopic {
+  id          Int      @id @default(autoincrement())
+  title       String
+  posts       CommunityPost[]
+}
+
+model CommunityPost {
+  id            Int      @id @default(autoincrement())
+  userId        Int
+  topicId       Int
+  content       String
+  createdAt     DateTime @default(now())
+  user          User     @relation(fields: [userId], references: [id])
+  topic         CommunityTopic @relation(fields: [topicId], references: [id])
+}
+
+model Badge {
+  id        Int      @id @default(autoincrement())
+  name      String
+  users     UserBadge[]
+}
+
+model UserBadge {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  badgeId   Int
+  grantedAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+  badge     Badge    @relation(fields: [badgeId], references: [id])
+}
+
+model Provider {
+  id             Int                   @id @default(autoincrement())
+  name           String
+  patientLinks   PatientProviderLink[]
+}
+
+model PatientProviderLink {
+  id         Int     @id @default(autoincrement())
+  patientId  Int
+  providerId Int
+  createdAt  DateTime @default(now())
+  user       User     @relation(fields: [patientId], references: [id])
+  provider   Provider  @relation(fields: [providerId], references: [id])
+}
+
+model NotificationSetting {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  notificationType String
+  isEnabled   Boolean  @default(true)
+}
+
+model Medication {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  name      String
+  dosage    String
+  frequency String
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+model Partner {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  status    PartnerStatus
+  user      User     @relation(fields: [userId], references: [id])
+}
