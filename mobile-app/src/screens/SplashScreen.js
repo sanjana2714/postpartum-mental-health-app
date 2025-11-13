@@ -31,11 +31,9 @@ export default function SplashScreen({ navigation }) {
   return (
     <LinearGradient colors={['#667eea', '#764ba2']} style={styles.container}>
       <View style={styles.content}>
-        <Image 
-          source={require('../../assets/logo.png')} 
-          style={styles.logo}
-          resizeMode="contain"
-        />
+        <View style={styles.logoPlaceholder}>
+          <Text style={styles.logoText}>PMH</Text>
+        </View>
         <Text style={styles.title}>Postpartum Mental Health</Text>
         <Text style={styles.tagline}>Supporting mothers, nurturing wellness</Text>
         <ActivityIndicator size="large" color="#ffffff" style={styles.loader} />
@@ -53,10 +51,19 @@ const styles = StyleSheet.create({
   content: {
     alignItems: 'center',
   },
-  logo: {
+  logoPlaceholder: {
     width: 150,
     height: 150,
     marginBottom: 20,
+    backgroundColor: 'rgba(255, 255, 255, 0.3)',
+    borderRadius: 75,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  logoText: {
+    fontSize: 48,
+    fontWeight: 'bold',
+    color: '#ffffff',
   },
   title: {
     fontSize: 28,

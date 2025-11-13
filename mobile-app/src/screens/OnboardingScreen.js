@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, AsyncStorage } from 'react-native';
-import Swiper from 'react-native-swiper';
+import React, { useState } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, Dimensions } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const slides = [
     {
@@ -21,7 +21,11 @@ const slides = [
     },
 ];
 
+const { width } = Dimensions.get('window');
+
 const OnboardingScreen = ({ navigation }) => {
+    const [currentIndex, setCurrentIndex] = useState(0);
+
     const handleSkip = async () => {
         await AsyncStorage.setItem('hasSeenOnboarding', 'true');
         navigation.navigate('Language');
@@ -34,14 +38,34 @@ const OnboardingScreen = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
-            <Swiper showsPagination={true} style={styles.wrapper}>
+            <ScrollView
+                horizontal
+                pagingEnabled
+                showsHorizontalScrollIndicator={false}
+                onScroll={(event) => {
+                    const index = Math.round(event.nativeEvent.contentOffset.x / width);
+                    setCurrentIndex(index);
+                }}
+                scrollEventThrottle={16}
+            >
                 {slides.map((slide, index) => (
-                    <View key={index} style={styles.slide}>
+                    <View key={index} style={[styles.slide, { width }]}>
                         <Text style={styles.title}>{slide.title}</Text>
                         <Text style={styles.description}>{slide.description}</Text>
                     </View>
                 ))}
-            </Swiper>
+            </ScrollView>
+            <View style={styles.pagination}>
+                {slides.map((_, index) => (
+                    <View
+                        key={index}
+                        style={[
+                            styles.paginationDot,
+                            currentIndex === index && styles.paginationDotActive
+                        ]}
+                    />
+                ))}
+            </View>
             <TouchableOpacity style={styles.skipButton} onPress={handleSkip}>
                 <Text style={styles.skipText}>Skip</Text>
             </TouchableOpacity>
@@ -57,8 +81,22 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
     },
-    wrapper: {
-        // additional styles for the swiper can be added here
+    pagination: {
+        flexDirection: 'row',
+        position: 'absolute',
+        bottom: 120,
+        alignSelf: 'center',
+    },
+    paginationDot: {
+        width: 10,
+        height: 10,
+        borderRadius: 5,
+        backgroundColor: '#ccc',
+        marginHorizontal: 5,
+    },
+    paginationDotActive: {
+        backgroundColor: 'blue',
+        width: 30,
     },
     slide: {
         flex: 1,
