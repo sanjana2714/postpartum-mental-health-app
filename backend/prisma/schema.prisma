@@ -215,6 +215,7 @@ model NotificationSetting {
   userId      Int
   notificationType String
   isEnabled   Boolean  @default(true)
+  user        User     @relation(fields: [userId], references: [id])
 }
 
 model Medication {

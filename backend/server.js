@@ -28,15 +28,11 @@ app.get('/health', (req, res) => {
   res.json({ status: 'ok', message: 'Postpartum Mental Health API is running' });
 });
 
-// API Routes (to be implemented)
-// app.use('/api/auth', require('./routes/auth'));
-// app.use('/api/users', require('./routes/users'));
-// app.use('/api/mood', require('./routes/mood'));
-// app.use('/api/questionnaires', require('./routes/questionnaires'));
-// app.use('/api/chatbot', require('./routes/chatbot'));
-// app.use('/api/library', require('./routes/library'));
-// app.use('/api/community', require('./routes/community'));
-// app.use('/api/provider', require('./routes/provider'));
+// API Routes
+app.use('/api/auth', require('./routes/auth'));
+app.use('/api/mood', require('./routes/mood'));
+app.use('/api/questionnaires', require('./routes/questionnaires'));
+app.use('/api/chatbot', require('./routes/chatbot'));
 
 // Error handling middleware
 app.use((err, req, res, next) => {
